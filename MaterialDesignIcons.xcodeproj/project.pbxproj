@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		D87370BE2510AEA600CB6E65 /* MaterialDesignIcons.h in Headers */ = {isa = PBXBuildFile; fileRef = D87370BC2510AEA600CB6E65 /* MaterialDesignIcons.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D87370C62510AFF800CB6E65 /* fastlane in Resources */ = {isa = PBXBuildFile; fileRef = D87370C52510AFF700CB6E65 /* fastlane */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D87370B92510AEA600CB6E65 /* MaterialDesignIcons.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaterialDesignIcons.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87370BC2510AEA600CB6E65 /* MaterialDesignIcons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaterialDesignIcons.h; sourceTree = "<group>"; };
 		D87370BD2510AEA600CB6E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D87370C52510AFF700CB6E65 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +32,7 @@
 		D87370AF2510AEA600CB6E65 = {
 			isa = PBXGroup;
 			children = (
+				D87370C42510AFE800CB6E65 /* Metadata */,
 				D87370BB2510AEA600CB6E65 /* MaterialDesignIcons */,
 				D87370BA2510AEA600CB6E65 /* Products */,
 			);
@@ -49,7 +52,16 @@
 				D87370BC2510AEA600CB6E65 /* MaterialDesignIcons.h */,
 				D87370BD2510AEA600CB6E65 /* Info.plist */,
 			);
-			path = MaterialDesignIcons;
+			name = MaterialDesignIcons;
+			path = icons;
+			sourceTree = "<group>";
+		};
+		D87370C42510AFE800CB6E65 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				D87370C52510AFF700CB6E65 /* fastlane */,
+			);
+			name = Metadata;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -121,6 +133,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D87370C62510AFF800CB6E65 /* fastlane in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,8 +279,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = MaterialDesignIcons/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/icons/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -290,8 +304,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = MaterialDesignIcons/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/icons/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
