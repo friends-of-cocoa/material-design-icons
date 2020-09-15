@@ -10,22 +10,22 @@
 #endif
 
 // Deprecated typealiases
-@available(*, deprecated, renamed: "ImageAsset.Image", message: "This typealias will be removed in SwiftGen 7.0")
-public typealias AssetImageTypeAlias = ImageAsset.Image
+@available(*, deprecated, renamed: "MDIIcon.Image", message: "This typealias will be removed in SwiftGen 7.0")
+public typealias AssetImageTypeAlias = MDIIcon.Image
 
 // swiftlint:disable superfluous_disable_command file_length implicit_return
 
 // MARK: - Asset Catalogs
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
-public enum Asset {
-  public static let viewArrayOutline24pt = ImageAsset(name: "view-array-outline_24pt")
+public enum MDIIcons {
+  public static let viewArrayOutline24pt = MDIIcon(name: "view-array-outline_24pt")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 
 // MARK: - Implementation Details
 
-public struct ImageAsset {
+public struct MDIIcon {
   public fileprivate(set) var name: String
 
   #if os(macOS)
@@ -51,10 +51,10 @@ public struct ImageAsset {
   }
 }
 
-public extension ImageAsset.Image {
+public extension MDIIcon.Image {
   @available(macOS, deprecated,
-    message: "This initializer is unsafe on macOS, please use the ImageAsset.image property")
-  convenience init?(asset: ImageAsset) {
+    message: "This initializer is unsafe on macOS, please use the MDIIcon.image property")
+  convenience init?(asset: MDIIcon) {
     #if os(iOS) || os(tvOS)
     let bundle = BundleToken.bundle
     self.init(named: asset.name, in: bundle, compatibleWith: nil)

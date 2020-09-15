@@ -21,6 +21,11 @@ or alternatively using `brew install fastlane`
 fastlane ios update_icons
 ```
 Download icons from materialdesignicons.com and update icons in current repository
+### ios update_swift
+```
+fastlane ios update_swift
+```
+Download icons metadata from materialdesignicons.com and update swift files in current repository
 
 ----
 

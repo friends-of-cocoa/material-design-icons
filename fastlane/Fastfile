@@ -113,7 +113,26 @@ platform :ios do
       download_asset(icon)
 
       FileUtils.mkdir_p "../icons/#{name}/src"
-      sh("swiftgen run xcassets --output ../icons/#{name}/src/#{name}.swift --templateName swift5 --param publicAccess ../icons/#{name}/res/#{name}_24pt.xcassets")
+      sh("swiftgen run xcassets --output ../icons/#{name}/src/#{name}.swift --templateName swift5 --param publicAccess --param enumName MDIIcons --param imageType MDIIcon ../icons/#{name}/res/#{name}_24pt.xcassets")
+    end
+  end
+  
+  desc "Download icons metadata from materialdesignicons.com and update swift files in current repository"
+  lane :update_swift do
+    require 'json'
+    require 'net/http'
+    require 'fileutils'
+    require "open-uri"
+
+    init = mdi_init
+    package_id = init["packages"].first["id"]
+
+    icons = mdi_package(package_id)["icons"]
+    icons.each do |icon|
+      name = icon["name"]
+
+      FileUtils.mkdir_p "../icons/#{name}/src"
+      sh("swiftgen run xcassets --output ../icons/#{name}/src/#{name}.swift --templateName swift5 --param publicAccess --param enumName=MDIIcons --param imageTypeName=MDIIcon ../icons/#{name}/res/#{name}_24pt.xcassets")
     end
   end
 end
