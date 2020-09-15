@@ -15,9 +15,105 @@
 
 default_platform(:ios)
 
+def mdi_init
+  uri = URI.parse('https://materialdesignicons.com/api/init')
+  request = Net::HTTP::Get.new uri
+  req_options = {
+      use_ssl: uri.scheme == "https",
+      verify_mode: OpenSSL::SSL::VERIFY_NONE,
+  }
+
+  response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+    http.request(request)
+  end
+
+  JSON.parse(response.body)
+end
+
+def mdi_package(id)
+  uri = URI.parse("https://materialdesignicons.com/api/package/#{id}")
+  request = Net::HTTP::Get.new uri
+  req_options = {
+      use_ssl: uri.scheme == "https",
+      verify_mode: OpenSSL::SSL::VERIFY_NONE,
+  }
+
+  response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+    http.request(request)
+  end
+
+  JSON.parse(response.body)
+end
+
+def download_asset(icon)
+  name = icon["name"]
+  folder = "../icons/#{name}/res/#{name}_24pt.xcassets/#{name}_24pt.imageset"
+  FileUtils.mkdir_p folder
+
+  open("https://materialdesignicons.com/api/download/icon/png/#{icon["id"]}/24/000000/1/FFFFFF/0/0/0/#{name}") do |image|
+    File.open("#{folder}/#{name}_24pt_1x.png", "wb") do |file|
+      file.write(image.read)
+    end
+  end
+  open("https://materialdesignicons.com/api/download/icon/png/#{icon["id"]}/48/000000/1/FFFFFF/0/0/0/#{name}") do |image|
+    File.open("#{folder}/#{name}_24pt_2x.png", "wb") do |file|
+      file.write(image.read)
+    end
+  end
+  open("https://materialdesignicons.com/api/download/icon/png/#{icon["id"]}/72/000000/1/FFFFFF/0/0/0/#{name}") do |image|
+    File.open("#{folder}/#{name}_24pt_3x.png", "wb") do |file|
+      file.write(image.read)
+    end
+  end
+  File.open("#{folder}/Contents.json", "w") do |file|
+    json = {
+        "images": [
+            {
+                "filename": "#{name}_24pt_1x.png",
+                "idiom": "universal",
+                "scale": "1x"
+            },
+            {
+                "filename": "#{name}_24pt_2x.png",
+                "idiom": "universal",
+                "scale": "2x"
+            },
+            {
+                "filename": "#{name}_24pt_3x.png",
+                "idiom": "universal",
+                "scale": "3x"
+            }
+        ],
+        "info": {
+            "author": "xcode",
+            "template-rendering-intent": "template",
+            "version": 1
+        }
+    }
+    file.write json.to_json
+  end
+end
+
 platform :ios do
   desc "Download icons from materialdesignicons.com and update icons in current repository"
   lane :update_icons do
-    
+    require 'json'
+    require 'net/http'
+    require 'fileutils'
+    require "open-uri"
+
+    init = mdi_init
+    package_id = init["packages"].first["id"]
+
+    icons = mdi_package(package_id)["icons"]
+    icons.each do |icon|
+      name = icon["name"]
+      UI.message "Downloading #{name} ..."
+
+      download_asset(icon)
+
+      FileUtils.mkdir_p "../icons/#{name}/src"
+      sh("swiftgen run xcassets --output ../icons/#{name}/src/#{name}.swift --templateName swift5 --param publicAccess ../icons/#{name}/res/#{name}_24pt.xcassets")
+    end
   end
 end
