@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60C51C1EA294A0C54FE70DA3 /* MDIIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C5183FB1F643379553BD4D /* MDIIcon.swift */; };
 		D87370BE2510AEA600CB6E65 /* MaterialDesignIcons.h in Headers */ = {isa = PBXBuildFile; fileRef = D87370BC2510AEA600CB6E65 /* MaterialDesignIcons.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D87370C62510AFF800CB6E65 /* fastlane in Resources */ = {isa = PBXBuildFile; fileRef = D87370C52510AFF700CB6E65 /* fastlane */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		60C5147E903DA06EF3ECEE7F /* templates */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = templates; sourceTree = "<group>"; };
+		60C5183FB1F643379553BD4D /* MDIIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDIIcon.swift; sourceTree = "<group>"; };
 		D87370B92510AEA600CB6E65 /* MaterialDesignIcons.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaterialDesignIcons.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87370BC2510AEA600CB6E65 /* MaterialDesignIcons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaterialDesignIcons.h; sourceTree = "<group>"; };
 		D87370BD2510AEA600CB6E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -7691,6 +7694,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		60C51D25BD54F8E173B6144B /* core */ = {
+			isa = PBXGroup;
+			children = (
+				60C5183FB1F643379553BD4D /* MDIIcon.swift */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
 		D87370AF2510AEA600CB6E65 = {
 			isa = PBXGroup;
 			children = (
@@ -11544,6 +11555,7 @@
 				D873A6D72511130100CB6E65 /* zodiac-virgo */,
 				D87370BC2510AEA600CB6E65 /* MaterialDesignIcons.h */,
 				D87370BD2510AEA600CB6E65 /* Info.plist */,
+				60C51D25BD54F8E173B6144B /* core */,
 			);
 			name = MaterialDesignIcons;
 			path = icons;
@@ -11553,6 +11565,7 @@
 			isa = PBXGroup;
 			children = (
 				D87370C52510AFF700CB6E65 /* fastlane */,
+				60C5147E903DA06EF3ECEE7F /* templates */,
 			);
 			name = Metadata;
 			sourceTree = "<group>";
@@ -107412,6 +107425,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60C51C1EA294A0C54FE70DA3 /* MDIIcon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -123,6 +123,10 @@ platform :ios do
     require 'net/http'
     require 'fileutils'
     require "open-uri"
+    require 'yaml'
+    require 'active_support/core_ext/hash'
+
+    swiftgen_xcassets = []
 
     init = mdi_init
     package_id = init["packages"].first["id"]
@@ -131,8 +135,69 @@ platform :ios do
     icons.each do |icon|
       name = icon["name"]
 
+      swiftgen_xcassets << {
+          "inputs": "icons/#{name}/res/#{name}_24pt.xcassets",
+          "outputs": [{
+                          "templatePath": "templates/swift5-subspec.stencil",
+                          "output": "icons/#{name}/src/#{name}.swift"
+                      }]
+      }
       FileUtils.mkdir_p "../icons/#{name}/src"
-      sh("swiftgen run xcassets --output ../icons/#{name}/src/#{name}.swift --templateName swift5 --param publicAccess --param enumName=MDIIcons --param imageTypeName=MDIIcon ../icons/#{name}/res/#{name}_24pt.xcassets")
+      #sh("swiftgen run xcassets --output ../icons/#{name}/src/#{name}.swift --templatePath ../templates/swift5-subspec.stencil ../icons/#{name}/res/#{name}_24pt.xcassets")
     end
+
+    swiftgen_config = { "xcassets": swiftgen_xcassets }
+    File.open("../swiftgen.yml", "w") { |file| file.puts swiftgen_config.deep_stringify_keys.to_yaml }
+    Dir.chdir("..") do
+      sh "swiftgen config run"
+    end
+  end
+
+  desc "Download icons metadata from materialdesignicons.com and update swift files in current repository"
+  lane :update_podspec do
+    require 'json'
+    require 'net/http'
+    require 'fileutils'
+    require "open-uri"
+
+    podspec_path = "../MaterialDesignIcons.podspec.json"
+    default_podspec = {
+        "name": "MaterialDesignIcons",
+        "version": "1.0.0",
+        "summary": "View all the Material Design icons and more from the community.",
+        "description": "Material Design Icons' growing icon collection allows designers and developers targeting various platforms to download icons in the format, color and size they need for any project.",
+        "homepage": "https://materialdesignicons.com",
+        "license": "Apache 2.0",
+        "authors": { "Damien DANGLARD": "ddanglard@cegid.com" },
+        "platforms": { "ios": "9.0" },
+        "source": { "http": "https://github.com/friends-of-cocoa/material-design-icons/archive/1.0.0.zip", "type": "zip" },
+        "swift_versions": "5.0",
+        "macos": { "frameworks": "AppKit" },
+        "ios": { "frameworks": "UIKit" },
+        "watchos": { "frameworks": "UIKit" },
+        "tvos": { "frameworks": "UIKit" }
+    }
+    podspec = File.exist?(podspec_path) ? JSON.parse(File.read(podspec_path)) : default_podspec
+    podspec["subspecs"] = [{ "name": "core", "source_files": "icons/core/MDIIcon.swift" }]
+
+    init = mdi_init
+    package_id = init["packages"].first["id"]
+
+    icons = mdi_package(package_id)["icons"]
+    icons.each do |icon|
+      name = icon["name"]
+
+      swift_file = "icons/#{name}/src/#{name}.swift"
+      xcassets_dir = "icons/#{name}/res/#{name}_24pt.xcassets"
+
+      podspec["subspecs"] << {
+          "name": name,
+          "source_files": swift_file,
+          "resource_bundles": { "#{name}": xcassets_dir },
+          "dependencies": { "MaterialDesignIcons/core": [] }
+      }
+    end
+
+    File.open("../MaterialDesignIcons.podspec.json", "w") { |file| file.puts JSON.pretty_generate(podspec) }
   end
 end
