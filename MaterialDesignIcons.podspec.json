@@ -16,7 +16,7 @@
     "type": "zip"
   },
   "swift_versions": "5.0",
-  "macos": {
+  "osx": {
     "frameworks": "AppKit"
   },
   "ios": {
@@ -31,7 +31,7 @@
   "subspecs": [
     {
       "name": "core",
-      "source_files": "icons/core/src/*.swift"
+      "source_files": "icons/core/MDIIcon.swift"
     },
     {
       "name": "ab-testing",

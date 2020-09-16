@@ -13,6 +13,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		60C513FEA94E9E5C3FBD5760 /* Gemfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
 		60C5147E903DA06EF3ECEE7F /* templates */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = templates; sourceTree = "<group>"; };
 		60C5183FB1F643379553BD4D /* MDIIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDIIcon.swift; sourceTree = "<group>"; };
 		D87370B92510AEA600CB6E65 /* MaterialDesignIcons.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaterialDesignIcons.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -11566,6 +11567,7 @@
 			children = (
 				D87370C52510AFF700CB6E65 /* fastlane */,
 				60C5147E903DA06EF3ECEE7F /* templates */,
+				60C513FEA94E9E5C3FBD5760 /* Gemfile */,
 			);
 			name = Metadata;
 			sourceTree = "<group>";

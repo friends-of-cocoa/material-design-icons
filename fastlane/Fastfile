@@ -172,7 +172,7 @@ platform :ios do
         "platforms": { "ios": "9.0" },
         "source": { "http": "https://github.com/friends-of-cocoa/material-design-icons/archive/1.0.0.zip", "type": "zip" },
         "swift_versions": "5.0",
-        "macos": { "frameworks": "AppKit" },
+        "osx": { "frameworks": "AppKit" },
         "ios": { "frameworks": "UIKit" },
         "watchos": { "frameworks": "UIKit" },
         "tvos": { "frameworks": "UIKit" }
